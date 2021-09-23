@@ -21,10 +21,10 @@ locals {
     var.worker_ami_name_filter_windows : "Windows_Server-2019-English-Core-EKS_Optimized-${tonumber(var.cluster_version) >= 1.14 ? var.cluster_version : 1.14}-*"
   )
 
-  ec2_principal = "ec2.${data.aws_partition.current.dns_suffix}"
-  sts_principal = "sts.${data.aws_partition.current.dns_suffix}"
-worker_groups_platforms = [for x in concat(var.worker_groups, var.worker_groups_launch_template) : try(x.platform, var.workers_group_defaults["platform"], var.default_platform)]
-  policy_arn_prefix = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
+  ec2_principal           = "ec2.${data.aws_partition.current.dns_suffix}"
+  sts_principal           = "sts.${data.aws_partition.current.dns_suffix}"
+  worker_groups_platforms = [for x in concat(var.worker_groups, var.worker_groups_launch_template) : try(x.platform, var.workers_group_defaults["platform"], var.default_platform)]
+  policy_arn_prefix       = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
   workers_group_defaults_defaults = {
     name                          = "count.index"               # Name of the worker group. Literal count.index will never be used but if name is not set, the count.index interpolation will be used.
     tags                          = []                          # A list of map defining extra tags to be applied to the worker group autoscaling group.
