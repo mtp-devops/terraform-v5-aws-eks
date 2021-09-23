@@ -55,6 +55,11 @@ variable "aws_auth_additional_labels" {
   type        = map(string)
 }
 
+variable "default_platform" {
+  description = "Default platform name. Valid options are `linux` and `windows`."
+  type        = string
+  default     = "linux"
+}
 variable "map_accounts" {
   description = "Additional AWS account numbers to add to the aws-auth configmap. See examples/basic/variables.tf for example format."
   type        = list(string)

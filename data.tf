@@ -25,6 +25,8 @@ data "aws_ami" "eks_worker" {
 }
 
 data "aws_ami" "eks_worker_windows" {
+  count = contains(local.worker_groups_platforms, "windows") ? 1 : 0
+
   filter {
     name   = "name"
     values = [local.worker_ami_name_filter_windows]

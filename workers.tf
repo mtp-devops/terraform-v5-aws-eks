@@ -183,6 +183,7 @@ resource "aws_launch_configuration" "workers" {
   image_id = lookup(
     var.worker_groups[count.index],
     "ami_id",
+    # lookup(var.worker_groups[count.index], "platform", local.workers_group_defaults["platform"]) == "windows" ? local.default_ami_id_windows : local.default_ami_id_linux,
     lookup(var.worker_groups[count.index], "platform", local.workers_group_defaults["platform"]) == "windows" ? local.default_ami_id_windows : local.default_ami_id_linux,
   )
   instance_type = lookup(

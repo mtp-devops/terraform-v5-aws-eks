@@ -8,7 +8,7 @@ locals {
 
   default_iam_role_id    = concat(aws_iam_role.workers.*.id, [""])[0]
   default_ami_id_linux   = coalesce(local.workers_group_defaults.ami_id, data.aws_ami.eks_worker.id)
-  default_ami_id_windows = coalesce(local.workers_group_defaults.ami_id_windows, data.aws_ami.eks_worker_windows.id)
+  default_ami_id_windows = local.workers_group_defaults.ami_id_windows != "" ? local.workers_group_defaults.ami_id_windows : concat(data.aws_ami.eks_worker_windows.*.id, [""])[0]
 
   kubeconfig_name = var.kubeconfig_name == "" ? "eks_${var.cluster_name}" : var.kubeconfig_name
 
@@ -23,7 +23,7 @@ locals {
 
   ec2_principal = "ec2.${data.aws_partition.current.dns_suffix}"
   sts_principal = "sts.${data.aws_partition.current.dns_suffix}"
-
+worker_groups_platforms = [for x in concat(var.worker_groups, var.worker_groups_launch_template) : try(x.platform, var.workers_group_defaults["platform"], var.default_platform)]
   policy_arn_prefix = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
   workers_group_defaults_defaults = {
     name                          = "count.index"               # Name of the worker group. Literal count.index will never be used but if name is not set, the count.index interpolation will be used.
