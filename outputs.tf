@@ -4,7 +4,8 @@ output "cluster_id" {
 
   # So that calling plans wait for the cluster to be available before attempting to use it.
   # There is no need to duplicate this datasource
-  depends_on = [data.http.wait_for_cluster]
+  depends_on = [null_resource.wait_for_cluster]
+  # depends_on = [data.http.wait_for_cluster]
 }
 
 output "cluster_arn" {
