@@ -325,6 +325,11 @@ resource "aws_launch_template" "workers_launch_template" {
       "metadata_http_put_response_hop_limit",
       local.workers_group_defaults["metadata_http_put_response_hop_limit"],
     )
+    http_protocol_ipv6 = lookup(
+      var.worker_groups_launch_template[count.index],
+      "http_protocol_ipv6",
+      local.workers_group_defaults["http_protocol_ipv6"],
+    )
   }
 
   dynamic "credit_specification" {
