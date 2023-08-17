@@ -41,7 +41,7 @@ locals {
     default_cooldown              = null                        # The amount of time, in seconds, after a scaling activity completes before another scaling activity can start.
     health_check_type             = null                        # Controls how health checking is done. Valid values are "EC2" or "ELB".
     health_check_grace_period     = null                        # Time in seconds after instance comes into service before checking health.
-    instance_type                 = "m4.large"                  # Size of the workers instances.
+    instance_type                 = "m5.large"                  # Size of the workers instances.
     spot_price                    = ""                          # Cost of spot instance.
     placement_tenancy             = ""                          # The tenancy of the instance. Valid values are "default" or "dedicated".
     root_volume_size              = "100"                       # root volume size of workers instances.
